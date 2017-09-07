@@ -21,6 +21,6 @@ class KudosController < ApplicationController
   private
 
   def kudo_params
-    params.permit(:text, :giver_id, :receiver_id)
+    params.require(:kudo).permit(:text, :giver_id, :receiver_id)
   end
 end

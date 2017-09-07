@@ -6,7 +6,7 @@ module ErrorHandling
       render json: { message: e.message }, status: :not_found
     end
 
-    rescue_from ActiveRecord::RecordInvalid do |e|
+    rescue_from ActiveRecord::RecordInvalid, ActiveRecord::StatementInvalid do |e|
       render json: { message: e.message }, status: :unprocessable_entity
     end
   end

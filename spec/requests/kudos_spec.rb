@@ -11,7 +11,7 @@ RSpec.describe 'Kudos API', type: :request do
       response_body = JSON.parse(response.body)
 
       expect(response_body).not_to be_empty
-      expect(response_body).size).to eq(25)
+      expect(response_body.size).to eq(25)
     end
 
     it 'returns status code 200' do 
@@ -64,7 +64,7 @@ RSpec.describe 'Kudos API', type: :request do
     before { delete "/kudos/#{kudo_id}" }
 
     it 'returns status code 204' do 
-      expect(response). to have_http_status(204)
+      expect(response).to have_http_status(204)
     end
 
     it 'deletes the kudo' do 
