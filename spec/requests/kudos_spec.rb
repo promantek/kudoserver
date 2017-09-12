@@ -19,6 +19,44 @@ RSpec.describe 'Kudos API', type: :request do
     end
   end
 
+  describe 'GET /users/:user_id/kudos' do
+    let!(:giving_user) { create(:user) }
+    let!(:receiving_user) { create(:user) }
+    let(:user_id) { receiving_user.id }
+
+    let!(:kudos) do
+      create_list(:kudo, 5, 
+        giver: giving_user,
+        receiver: receiving_user
+      )
+    end
+
+    before { get "/users/#{user_id}/kudos" }
+
+    context "when the user id is valid" do 
+      it 'returns status code 200' do
+        expect(response).to have_http_status(200)
+      end
+
+      it 'returns kudos given to the user' do 
+        expect(JSON.parse(response.body).size).to eq(5)
+      end
+    end
+
+    context "when the user id is not valid" do 
+      let(:user_id) { 0 }
+
+      it 'returns status code 404' do 
+        expect(response).to have_http_status(404)
+      end
+
+      it 'returns an error message' do 
+        expect(response.body).to match(/Couldn't find User/)
+      end
+    end
+
+  end
+
   describe 'POST /kudos' do 
     let(:text) { Faker::Matz.quote[0..139] }
 

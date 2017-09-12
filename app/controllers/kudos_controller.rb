@@ -2,7 +2,13 @@ class KudosController < ApplicationController
   # GET /kudos
   def index
     @kudos = Kudo.all
+    render json: @kudos, status: :ok
+  end
 
+  # GET /users/:user_id/kudos
+  def show
+    @user = User.find(params[:user_id])
+    @kudos = @user.kudos_received
     render json: @kudos, status: :ok
   end
 
@@ -21,6 +27,6 @@ class KudosController < ApplicationController
   private
 
   def kudo_params
-    params.require(:kudo).permit(:text, :giver_id, :receiver_id)
+    params.permit(:text, :giver_id, :receiver_id)
   end
 end
