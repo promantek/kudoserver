@@ -1,13 +1,13 @@
 class KudosController < ApplicationController
   # GET /kudos
   def index
-    @kudos = Kudo.all
+    @kudos = User.first.kudos_received
     render json: @kudos, status: :ok
   end
 
   # GET /users/:user_id/kudos
   def show
-    @user = User.find(params[:user_id])
+    @user = User.find(params[:id])
     @kudos = @user.kudos_received
     render json: @kudos, status: :ok
   end

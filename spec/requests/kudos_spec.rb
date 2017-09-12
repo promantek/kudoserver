@@ -1,17 +1,24 @@
 require 'rails_helper'
 
 RSpec.describe 'Kudos API', type: :request do 
-  let!(:kudos) { create_list(:kudo, 25) }
-  let(:kudo_id) { kudos.first.id } 
-
   describe 'GET /kudos' do 
+    let!(:receiving_user) { create(:user) }
+    let!(:giving_user) { create(:user) }
+
+    let!(:kudos) do
+      create_list(:kudo, 5, 
+        giver: giving_user,
+        receiver: User.first
+      )
+    end
+
     before { get '/kudos' }
 
-    it 'returns all kudos' do 
+    it 'returns all kudos for currently logged in user' do 
       response_body = JSON.parse(response.body)
 
       expect(response_body).not_to be_empty
-      expect(response_body.size).to eq(25)
+      expect(response_body.size).to eq(5)
     end
 
     it 'returns status code 200' do 
@@ -59,13 +66,15 @@ RSpec.describe 'Kudos API', type: :request do
 
   describe 'POST /kudos' do 
     let(:text) { Faker::Matz.quote[0..139] }
+    let!(:giving_user) { create(:user) }
+    let!(:receiving_user) { create(:user) }
 
     context 'with a valid request' do 
       let(:valid_params) do 
         {
           text: text,
-          giver_id: 1,
-          receiver_id: 2
+          giver_id: giving_user.id,
+          receiver_id: receiving_user.id
         }
       end
 
@@ -99,6 +108,7 @@ RSpec.describe 'Kudos API', type: :request do
   end
 
   describe 'DELETE /kudos/:id' do 
+    let(:kudo_id) { create(:kudo).id }
     before { delete "/kudos/#{kudo_id}" }
 
     it 'returns status code 204' do 

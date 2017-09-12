@@ -1,11 +1,14 @@
 class CreateKudos < ActiveRecord::Migration[5.1]
   def change
     create_table :kudos do |t|
-      t.references :giver, foreign_key: true
-      t.references :receiver, foreign_key: true
+      t.integer :giver_id
+      t.integer :receiver_id
       t.string :text
 
       t.timestamps
     end
+
+    add_index :kudos, :giver_id
+    add_index :kudos, :receiver_id
   end
 end
