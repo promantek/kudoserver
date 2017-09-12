@@ -1,24 +1,249 @@
-# README
+### Kudos
+**Request:**
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+`GET /kudos` - list all received kudos of currently logged-in user
 
-Things you may want to cover:
+**Response**: 
 
-* Ruby version
+`200 OK`
 
-* System dependencies
+`Content-Type: application/json`
 
-* Configuration
+*Body*:
 
-* Database creation
+```json
+[
+    {
+        "created_at": "2017-09-12T21:18:27.321Z",
+        "giver_id": 1,
+        "id": 1,
+        "receiver_id": 1,
+        "text": "Test Kudo",
+        "updated_at": "2017-09-12T21:18:27.321Z"
+    },
+    {
+        "created_at": "2017-09-12T21:34:04.793Z",
+        "giver_id": 1,
+        "id": 2,
+        "receiver_id": 1,
+        "text": "Test Kudo",
+        "updated_at": "2017-09-12T21:34:04.793Z"
+    }
+]
+```
 
-* Database initialization
+**Request**:
 
-* How to run the test suite
+`GET /users/:user_id/kudos` - list all received kudos of user_id
 
-* Services (job queues, cache servers, search engines, etc.)
+*Parameters*:
 
-* Deployment instructions
+`user_id` - integer ID of user who you wish to get kudos for
 
-* ...
+**Response**: 
+
+`200 OK`
+
+`Content-Type: application/json`
+
+*Body*:
+
+```json
+[
+    {
+        "created_at": "2017-09-12T21:18:27.321Z",
+        "giver_id": 1,
+        "id": 1,
+        "receiver_id": 1,
+        "text": "Test Kudo",
+        "updated_at": "2017-09-12T21:18:27.321Z"
+    },
+    {
+        "created_at": "2017-09-12T21:34:04.793Z",
+        "giver_id": 1,
+        "id": 2,
+        "receiver_id": 1,
+        "text": "Test Kudo",
+        "updated_at": "2017-09-12T21:34:04.793Z"
+    }
+]
+```
+
+**Request**: 
+
+`GET /users/:user_id/kudos` - list all received kudos of user_id
+
+*Parameters*:
+
+`user_id` - integer ID of user who you wish to get kudos for
+
+**Response**: 
+
+`200 OK`
+
+`Content-Type: application/json`
+
+*Body*:
+
+```json
+[
+    {
+        "created_at": "2017-09-12T21:18:27.321Z",
+        "giver_id": 1,
+        "id": 1,
+        "receiver_id": 1,
+        "text": "Test Kudo",
+        "updated_at": "2017-09-12T21:18:27.321Z"
+    },
+    {
+        "created_at": "2017-09-12T21:34:04.793Z",
+        "giver_id": 1,
+        "id": 2,
+        "receiver_id": 1,
+        "text": "Test Kudo",
+        "updated_at": "2017-09-12T21:34:04.793Z"
+    }
+]
+```
+
+**Request**:
+
+`POST /kudos` - create a new kudos record
+
+*Body*:
+
+```json
+{
+  "text": "This is a kudo",
+  "receiver_id": 1,
+  "giver_id: 2
+}
+```
+
+**Response**: 
+
+`201 Created`
+
+`Content-Type: application/json`
+
+*Body*:
+
+```json
+{
+    "created_at": "2017-09-12T22:28:14.304Z",
+    "giver_id": 2,
+    "id": 1,
+    "receiver_id": 1,
+    "text": "This is a kudo",
+    "updated_at": "2017-09-12T22:28:14.304Z"
+}
+```
+
+**Request**:
+
+`DELETE /kudos/:id` - delete a kudos record
+
+*Parameters*:  
+
+`id` - integer ID of the kudo you wish to delete
+
+**Response**:
+
+`204 No Content`
+
+### Users
+
+**Request**:
+
+`GET /users` - list all user records
+
+**Response**: 
+
+`200 OK`
+
+`Content-Type: application/json`
+
+*Body*:
+
+```json
+[
+    {
+        "created_at": "2017-09-12T21:17:31.908Z",
+        "id": 1,
+        "kudos_given_count": 4,
+        "kudos_received_count": 4,
+        "updated_at": "2017-09-12T21:17:31.908Z",
+        "username": "daenerys"
+    }
+]
+```
+
+**Request**:
+
+`POST /user` - create a new user record
+
+*Body*:
+
+```json
+{
+  "username": "daenerys"
+}
+```
+
+**Response**: 
+
+`201 Created`
+
+`Content-Type: application/json`
+
+*Body*:
+
+```json
+{
+    "created_at": "2017-09-12T22:33:49.495Z",
+    "id": 2,
+    "kudos_given_count": 1,
+    "kudos_received_count": 1,
+    "updated_at": "2017-09-12T22:33:49.495Z",
+    "username": "daenerys"
+}
+```
+
+**Request**:
+
+`GET /users/:id` - get user info for ID
+
+*Parameters*:
+
+`id` - integer ID of the user you wish to get
+
+**Response**: 
+
+`200 OK`
+
+`Content-Type: application/json`
+
+*Body*:
+
+```json
+{
+    "created_at": "2017-09-12T22:33:49.495Z",
+    "id": 2,
+    "kudos_given_count": 1,
+    "kudos_received_count": 1,
+    "updated_at": "2017-09-12T22:33:49.495Z",
+    "username": "daenerys"
+}
+```
+
+**Request**:
+
+`DELETE /users/:id` - delete a user record
+
+*Parameters*:  
+
+`id` - integer ID of the user you wish to delete
+
+**Response**:
+
+`204 No Content`
