@@ -1,3 +1,8 @@
+## Setup
+`bundle install`, then `rails db:setup`
+
+## API Documentation
+
 ### Kudos
 **Request:**
 
