@@ -17,12 +17,6 @@ class UsersController < ApplicationController
     render json: @user, status: :created
   end
 
-  # DELETE /users/:id
-  def destroy
-    User.find(params[:id]).destroy
-    head :no_content
-  end
-
   private
 
   def user_params
