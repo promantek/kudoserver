@@ -49,10 +49,18 @@ RSpec.describe 'Users API', type: :request do
   end
 
   describe 'POST /users' do 
-    let(:username) { Faker::GameOfThrones.dragon } 
+    let(:first_name) { Faker::GameOfThrones.dragon }
+    let(:last_name) { Faker::GameOfThrones.dragon }
+    let(:username) { first_name + last_name }
 
     context 'with a valid request' do 
-      let(:valid_params) { { username: username } }
+      let(:valid_params) do
+        { 
+          username: username,
+          first_name: first_name,
+          last_name: last_name
+        }
+      end
 
       before { post '/users', params: valid_params } 
 
@@ -64,29 +72,25 @@ RSpec.describe 'Users API', type: :request do
     end
 
     context 'with an invalid request' do 
-      let(:invalid_params) { { username: nil } }
+      context "because of missing parameters" do 
+        let(:invalid_params) do
+          { 
+            username: username,
+            first_name: nil,
+            last_name: last_name
+          }
+        end
 
-      before { post '/users', params: invalid_params } 
+        before { post '/users', params: invalid_params } 
 
-      it 'returns status code 422' do
-        expect(response).to have_http_status(422)
+        it 'returns status code 422' do
+          expect(response).to have_http_status(422)
+        end
+
+        it 'returns an error message' do 
+          expect(response.body).to match(/First name can't be blank/)
+        end
       end
-
-      it 'returns an error message' do 
-        expect(response.body).to match(/Username can't be blank/)
-      end
-    end
-  end
-
-  describe 'DELETE /users/:id' do 
-    before { delete "/users/#{user_id}" }
-
-    it 'returns status code 204' do 
-      expect(response).to have_http_status(204)
-    end
-
-    it 'deletes the user' do 
-      should { change(User, :count).by(1) }
     end
   end
 end
