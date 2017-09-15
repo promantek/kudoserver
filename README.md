@@ -6,7 +6,9 @@
 
 ## Testing
 You can hit API endpoints via commandline with curl:
+
 GET: `curl localhost:3000/users`
+
 POST: `curl -H "Content-Type: application/json" -d '{"username":"daenerys", "first_name":"daenerys", "last_name":"targaryen"}' localhost:3000/users`
 
 ## API Documentation
