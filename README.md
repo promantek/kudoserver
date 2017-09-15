@@ -1,5 +1,13 @@
 ## Setup
-`bundle install`, then `rails db:setup`
+1) Install dependencies with `bundle install`
+2) Configure your database settings in `config/database.yml`
+3) Build your database with `rails db:setup db:seed`
+4) Start your rails server with `rails server`
+
+## Testing
+You can hit API endpoints via commandline with curl:
+GET: `curl localhost:3000/users`
+POST: `curl -H "Content-Type: application/json" -d '{"username":"daenerys", "first_name":"daenerys", "last_name":"targaryen"}' localhost:3000/users`
 
 ## API Documentation
 
@@ -178,7 +186,9 @@
         "kudos_given_count": 4,
         "kudos_received_count": 4,
         "updated_at": "2017-09-12T21:17:31.908Z",
-        "username": "daenerys"
+        "username": "daenerys",
+        "first_name": "Daenerys",
+        "last_name": "Targaryen"
     }
 ]
 ```
@@ -191,7 +201,9 @@
 
 ```json
 {
-  "username": "daenerys"
+  "username": "daenerys",
+  "first_name": "Daenerys",
+  "last_name": "Targaryen"
 }
 ```
 
@@ -210,7 +222,9 @@
     "kudos_given_count": 1,
     "kudos_received_count": 1,
     "updated_at": "2017-09-12T22:33:49.495Z",
-    "username": "daenerys"
+    "username": "daenerys",
+    "first_name": "Daenerys",
+    "last_name": "Targaryen"
 }
 ```
 
@@ -237,18 +251,8 @@
     "kudos_given_count": 1,
     "kudos_received_count": 1,
     "updated_at": "2017-09-12T22:33:49.495Z",
-    "username": "daenerys"
+    "username": "daenerys",
+    "first_name": "Daenerys",
+    "last_name": "Targaryen"
 }
 ```
-
-**Request**:
-
-`DELETE /users/:id` - delete a user record
-
-*Parameters*:  
-
-`id` - integer ID of the user you wish to delete
-
-**Response**:
-
-`204 No Content`
