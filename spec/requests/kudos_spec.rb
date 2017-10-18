@@ -78,7 +78,6 @@ RSpec.describe 'Kudos API', type: :request do
       let(:valid_params) do
         {
           text: text,
-          giver_id: giving_user.id,
           receiver_id: receiving_user.id
         }
       end

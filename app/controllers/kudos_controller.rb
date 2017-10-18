@@ -1,24 +1,22 @@
 class KudosController < APIController
-  # GET /kudos
   def index
-    @kudos = User.first.kudos_received
-    render json: @kudos, status: :ok
+    @kudos = Kudo.all.eager_load(:giver, :receiver)
+    render json: @kudos.map(&:with_giver_and_reciever), status: :ok
   end
 
-  # GET /users/:user_id/kudos
   def show
-    @user = User.find(params[:id])
-    @kudos = @user.kudos_received
-    render json: @kudos, status: :ok
+    @kudos = User.find(params[:id])
+                 .kudos_received
+                 .eager_load(:giver)
+                 .order(created_at: :desc)
+    render json: @kudos.map(&:with_giver), status: :ok
   end
 
-  # POST /kudos
   def create
     @kudo = Kudo.create!(kudo_params)
     render json: @kudo, status: :created
   end
 
-  # DELETE /kudos/:id
   def destroy
     Kudo.find(params[:id]).destroy
     head :no_content

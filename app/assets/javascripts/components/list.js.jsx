@@ -5,10 +5,14 @@ class List extends React.Component {
   }
   componentDidMount() {
     var that = this
-    GET(this.props.path).end((_, data) => { that.setState({ items: data.body }) })
+    GET(this.props.path).end((err, data) => {
+      if( ! err ) that.setState({ items: data.body })
+    })
   }
   render() {
-    var cudosList = this.state.items.map((kudos) => { return <Kudos {...kudos} /> })
-    return <div>{ cudosList }</div>
+    var kudosList = this.state.items.map((kudo) => {
+      return <Kudo {...kudo} key={kudo.id} />
+    })
+    return <div>{ kudosList }</div>
   }
 }

@@ -19,4 +19,30 @@ RSpec.describe Kudo, type: :model do
   it { should validate_presence_of(:giver_id) }
   it { should validate_presence_of(:receiver_id) }
   it { should validate_length_of(:text).is_at_most(140) }
+
+  describe "#with_giver" do
+    subject { FactoryGirl.create :kudo }
+
+    it "returns the giver username and id" do
+      expect(subject.with_giver['giver']).to include(
+        "id" => subject.giver.id,
+        "username" => subject.giver.username,
+      )
+    end
+  end
+
+  describe "#with_giver_and_reciever" do
+    subject { FactoryGirl.create :kudo }
+
+    it "returns the giver username and id" do
+      expect(subject.with_giver_and_reciever['receiver']).to include(
+        "id" => subject.receiver.id,
+        "username" => subject.receiver.username,
+      )
+      expect(subject.with_giver_and_reciever['giver']).to include(
+        "id" => subject.giver.id,
+        "username" => subject.giver.username,
+      )
+    end
+  end
 end

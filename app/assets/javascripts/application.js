@@ -1,6 +1,7 @@
 //= require react
 //= require react_ujs
 //= require vanilla-ujs
+//= require moment
 //= require superagent
 //= require_tree ./components
 
