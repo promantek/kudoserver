@@ -70,8 +70,11 @@ RSpec.describe 'Kudos API', type: :request do
     let!(:receiving_user) { create(:user) }
 
     before(:each) do
-      post user_session_path, params: { user: { username: giving_user.username,
-                                                password: giving_user.password } }
+      post(
+        user_session_path,
+        params: { user: { username: giving_user.username,
+                          password: giving_user.password }}
+      )
     end
 
     context 'with a valid request' do
