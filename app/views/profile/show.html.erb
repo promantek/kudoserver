@@ -14,7 +14,9 @@
 
     <div class="six columns">
       <h4>Give <%= @user.first_name %> Kudos</h4>
-      <%= react_component :KudoBox, { path: kudos_path, receiver_id: @user.id } %>
+      <%= react_component :KudoBox, { path: kudos_path,
+                                      receiver_id: @user.id,
+                                      over_limit: current_user.over_limit? } %>
     </div>
   </div>
 </div>

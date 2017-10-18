@@ -17,7 +17,7 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   it { should have_many(:kudos_received) }
   it { should have_many(:kudos_given).dependent(:destroy) }
-  it { should belongs_to(:organization).dependent(:destroy) }
+  it { should belong_to(:organization) }
 
   it { should validate_presence_of(:username) }
   it { should validate_presence_of(:first_name) }

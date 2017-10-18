@@ -8,4 +8,8 @@ class User < ApplicationRecord
 
   validates_presence_of :username, :first_name, :last_name, :organization
   validates_uniqueness_of :username
+
+  def over_limit?
+    kudos_given.where(created_at: 1.day.ago..Time.current).count > 2
+  end
 end

@@ -13,7 +13,8 @@ class KudosController < APIController
   end
 
   def create
-    @kudo = Kudo.create!(kudo_params)
+    @kudo = Kudo.create!(kudo_params).as_json
+    @kudo[:over_limit] = true if current_user.over_limit?
     render json: @kudo, status: :created
   end
 

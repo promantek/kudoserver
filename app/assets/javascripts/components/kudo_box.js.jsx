@@ -1,7 +1,7 @@
 class KudoBox extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { kudo: '' }
+    this.state = { kudo: '', over_limit: this.props.over_limit }
   }
 
   handleChange(event) {
@@ -17,7 +17,11 @@ class KudoBox extends React.Component {
         if( !err ) {
           ReactRailsUJS.unmountComponents('.kudo_list div')
           ReactRailsUJS.mountComponents('.kudo_list div')
-          that.setState({ kudo: '' })
+          that.setState({ kudo: '', over_limit: data.body.over_limit })
+        } else {
+          if( data.body.message.match(/too many kudos/) ) {
+            that.setState({ over_limit: true })
+          }
         }
       })
     }
@@ -33,7 +37,7 @@ class KudoBox extends React.Component {
   }
 
   valid() {
-    return this.remaining() > 0 && this.length() > 1
+    return !this.state.over_limit && this.remaining() > 0 && this.length() > 1
   }
 
   warningClass() {
@@ -41,6 +45,7 @@ class KudoBox extends React.Component {
   }
 
   buttonMessage() {
+    if( this.state.over_limit ) return 'At Daily Kudo Limit'
     if( this.remaining() < 0 ) return 'Too long!'
     if( this.length() < 1 ) return 'Add a Kudo...'
     return 'Send Your Kudo'
