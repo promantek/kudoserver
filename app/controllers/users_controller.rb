@@ -1,17 +1,14 @@
-class UsersController < ApplicationController
-  # GET /users
+class UsersController < APIController
   def index
     @users = User.all
     render json: @users, status: :ok
   end
 
-  # GET /users/:id
   def show
     @user = User.find(params[:id])
     render json: @user, status: :ok
   end
 
-  # POST /user
   def create
     @user = User.create!(user_params)
     render json: @user, status: :created
@@ -20,6 +17,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.permit(:username, :first_name, :last_name)
+    params.permit(:username, :first_name, :last_name, :organization_id)
   end
 end

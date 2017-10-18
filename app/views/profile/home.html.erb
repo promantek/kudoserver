@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="row">
+    <div class="twelve columns">
+      <h2>Your Kudos</h2>
+      <strong><%= current_user.organization.try!(:name) %></strong>
+      <hr>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="twelve columns">
+      <h5>Received Kudos</h5>
+      <%= react_component :List, { path: kudo_path(current_user.id) } %>
+    </div>
+  </div>
+</div>

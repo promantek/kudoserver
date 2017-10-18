@@ -1,24 +1,32 @@
-class KudosController < ApplicationController
-  # GET /kudos
+class KudosController < APIController
   def index
-    @kudos = User.first.kudos_received
-    render json: @kudos, status: :ok
+    @kudos = Kudo.all.eager_load(:giver, :receiver)
+    render json: @kudos.map(&:with_giver_and_receiver), status: :ok
   end
 
-  # GET /users/:user_id/kudos
   def show
     @user = User.find(params[:id])
+    limit = params.fetch(:limit, '5').to_i
     @kudos = @user.kudos_received
-    render json: @kudos, status: :ok
+                  .eager_load(:giver)
+                  .order(created_at: :desc)
+                  .limit(limit)
+                  .offset(params.fetch(:page, '0').to_i * limit)
+    render(
+      json: {
+        count: @user.kudos_received_count,
+        kudos: @kudos.map(&:with_giver)
+      },
+      status: :ok
+    )
   end
 
-  # POST /kudos
   def create
-    @kudo = Kudo.create!(kudo_params)
+    @kudo = Kudo.create!(kudo_params).as_json
+    @kudo[:over_limit] = true if current_user.over_limit?
     render json: @kudo, status: :created
   end
 
-  # DELETE /kudos/:id
   def destroy
     Kudo.find(params[:id]).destroy
     head :no_content
@@ -27,6 +35,6 @@ class KudosController < ApplicationController
   private
 
   def kudo_params
-    params.permit(:text, :giver_id, :receiver_id)
+    params.permit(:text, :receiver_id).merge(giver_id: current_user.id)
   end
 end

@@ -12,10 +12,12 @@
 #  last_name            :text
 #
 #
-FactoryGirl.define do 
-  factory :user do 
+FactoryGirl.define do
+  factory :user do
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
-    username { Faker::GameOfThrones.dragon }
+    association :organization, factory: :organization
+    sequence(:username) { |n| "#{Faker::GameOfThrones.dragon}-#{n}" }
+    password { 'fakefakefake' }
   end
 end

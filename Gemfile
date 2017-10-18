@@ -10,6 +10,10 @@ gem 'pg'
 gem 'puma', '~> 3.7'
 
 gem 'faker'
+gem 'sass'
+gem 'react-rails'
+gem 'vanilla-ujs'
+gem 'devise'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -24,7 +28,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
-group :test do  
+group :test do
   gem 'database_cleaner'
   gem 'factory_girl_rails', '~> 4.8'
   gem 'shoulda-matchers', '~> 3.1'
