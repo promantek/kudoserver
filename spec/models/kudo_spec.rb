@@ -31,18 +31,27 @@ RSpec.describe Kudo, type: :model do
     end
   end
 
-  describe "#with_giver_and_reciever" do
+  describe "#with_giver_and_receiver" do
     subject { FactoryGirl.create :kudo }
 
     it "returns the giver username and id" do
-      expect(subject.with_giver_and_reciever['receiver']).to include(
+      expect(subject.with_giver_and_receiver['receiver']).to include(
         "id" => subject.receiver.id,
         "username" => subject.receiver.username,
       )
-      expect(subject.with_giver_and_reciever['giver']).to include(
+      expect(subject.with_giver_and_receiver['giver']).to include(
         "id" => subject.giver.id,
         "username" => subject.giver.username,
       )
+    end
+  end
+
+  describe "#rate_limit_giver" do
+    let!(:giver) { FactoryGirl.create :user }
+    let!(:kudos) { 3.times { FactoryGirl.create :kudo, giver: giver } }
+
+    it "cannot create more than 3 kudos per day" do
+      expect(FactoryGirl.build(:kudo, giver: giver).valid?).to be false
     end
   end
 end

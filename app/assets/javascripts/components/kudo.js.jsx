@@ -1,7 +1,7 @@
 class Kudo extends React.Component {
   render() {
     var giver = '',
-        reciever = ''
+        receiver = ''
 
     if( this.props.giver ) {
       giver = <li>
@@ -12,11 +12,11 @@ class Kudo extends React.Component {
               </li>
     }
 
-    if( this.props.reciever ) {
-      reciever = <li>
+    if( this.props.receiver ) {
+      receiver = <li>
                 to
-                <a href={"/profile/"+ this.props.reciever.id} >
-                  { this.props.reciever.username }
+                <a href={"/profile/"+ this.props.receiver.id} >
+                  { this.props.receiver.username }
                 </a>
               </li>
     }
@@ -24,7 +24,7 @@ class Kudo extends React.Component {
       <blockquote><p>{ this.props.text }</p></blockquote>
       <ul className="divided">
         { giver }
-        { reciever }
+        { receiver }
         <li>{ moment(this.props.created_at).calendar() }</li>
       </ul>
     </div>

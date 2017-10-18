@@ -1,7 +1,7 @@
 class KudosController < APIController
   def index
     @kudos = Kudo.all.eager_load(:giver, :receiver)
-    render json: @kudos.map(&:with_giver_and_reciever), status: :ok
+    render json: @kudos.map(&:with_giver_and_receiver), status: :ok
   end
 
   def show

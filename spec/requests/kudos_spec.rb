@@ -6,7 +6,7 @@ RSpec.describe 'Kudos API', type: :request do
     let!(:giving_user) { create(:user) }
 
     let!(:kudos) do
-      create_list(:kudo, 5,
+      create_list(:kudo, 3,
         giver: giving_user,
         receiver: User.first
       )
@@ -18,7 +18,7 @@ RSpec.describe 'Kudos API', type: :request do
       response_body = JSON.parse(response.body)
 
       expect(response_body).not_to be_empty
-      expect(response_body.size).to eq(5)
+      expect(response_body.size).to eq(3)
     end
 
     it 'returns status code 200' do
@@ -32,7 +32,7 @@ RSpec.describe 'Kudos API', type: :request do
     let(:user_id) { receiving_user.id }
 
     let!(:kudos) do
-      create_list(:kudo, 5,
+      create_list(:kudo, 3,
         giver: giving_user,
         receiver: receiving_user
       )
@@ -46,7 +46,7 @@ RSpec.describe 'Kudos API', type: :request do
       end
 
       it 'returns kudos given to the user' do
-        expect(JSON.parse(response.body).size).to eq(5)
+        expect(JSON.parse(response.body).size).to eq(3)
       end
     end
 

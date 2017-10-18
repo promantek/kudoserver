@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171017234951) do
+ActiveRecord::Schema.define(version: 20171018041311) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,12 @@ ActiveRecord::Schema.define(version: 20171017234951) do
     t.index ["receiver_id"], name: "index_kudos_on_receiver_id"
   end
 
+  create_table "organizations", force: :cascade do |t|
+    t.string "name", default: ""
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.integer "kudos_given_count"
@@ -37,8 +43,11 @@ ActiveRecord::Schema.define(version: 20171017234951) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.bigint "organization_id"
+    t.index ["organization_id"], name: "index_users_on_organization_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "users", "organizations"
 end

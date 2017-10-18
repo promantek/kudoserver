@@ -1,12 +1,13 @@
 require 'faker'
 
-def generate_user_data
-  first_name = Faker::Name.first_name
-  last_name = Faker::Name.last_name
-  username = Faker::Internet.user_name("#{first_name} #{last_name}", '_')
-  password = 'fakefakefake'
+org = Organization.create!(name: Faker::VentureBros.organization)
 
-  return { first_name: first_name, last_name: last_name, username: username }
+def generate_user_data
+  { organization: org,
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    username: Faker::Internet.user_name("#{first_name} #{last_name}", '_'),
+    password: 'fakefakefake' }
 end
 
 def limited_text(sentence)
