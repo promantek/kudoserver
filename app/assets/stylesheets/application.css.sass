@@ -3,9 +3,6 @@
  *= require 'normalize'
  */
 
-body *
-  font-family: 'Slabo 27px', serif
-
 h2
   color: #E96B0B
 
@@ -67,3 +64,30 @@ ul.divided
   button[disabled]
     cursor: not-allowed
     opacity: 0.5
+
+.pagination
+  .prev, .next
+    margin: 20px 30px 0
+  .prev
+    float: left
+  .next
+    float: right
+  .center
+    text-align: center
+    display: block
+    width: 50%
+    margin: 0 auto
+
+.auth
+  position: absolute
+  top: 0px
+  right: 10%
+
+  color: #dedede
+  a
+    font-size: 1.2rem
+    font-weight: normal
+
+@media (max-width: 440px)
+  .auth
+    top: -20px

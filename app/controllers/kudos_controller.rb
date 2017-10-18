@@ -5,11 +5,20 @@ class KudosController < APIController
   end
 
   def show
-    @kudos = User.find(params[:id])
-                 .kudos_received
-                 .eager_load(:giver)
-                 .order(created_at: :desc)
-    render json: @kudos.map(&:with_giver), status: :ok
+    @user = User.find(params[:id])
+    limit = params.fetch(:limit, '5').to_i
+    @kudos = @user.kudos_received
+                  .eager_load(:giver)
+                  .order(created_at: :desc)
+                  .limit(limit)
+                  .offset(params.fetch(:page, '0').to_i * limit)
+    render(
+      json: {
+        count: @user.kudos_received_count,
+        kudos: @kudos.map(&:with_giver)
+      },
+      status: :ok
+    )
   end
 
   def create
