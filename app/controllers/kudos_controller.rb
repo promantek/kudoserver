@@ -1,4 +1,4 @@
-class KudosController < ApplicationController
+class KudosController < APIController
   # GET /kudos
   def index
     @kudos = User.first.kudos_received
@@ -27,6 +27,6 @@ class KudosController < ApplicationController
   private
 
   def kudo_params
-    params.permit(:text, :giver_id, :receiver_id)
+    params.permit(:text, :receiver_id).merge(giver_id: current_user.id)
   end
 end

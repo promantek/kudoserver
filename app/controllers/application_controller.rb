@@ -1,3 +1,3 @@
-class ApplicationController < ActionController::API
-  include ErrorHandling
+class ApplicationController < ActionController::Base
+  layout 'layouts/application'
 end

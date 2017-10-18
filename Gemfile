@@ -13,6 +13,7 @@ gem 'faker'
 gem 'sass'
 gem 'react-rails'
 gem 'vanilla-ujs'
+gem 'devise'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

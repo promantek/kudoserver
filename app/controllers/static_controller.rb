@@ -1,3 +1,3 @@
-class StaticController < ActionController::Base
-  layout 'layouts/application'
+class StaticController < ApplicationController
+  before_action :authenticate_user!
 end

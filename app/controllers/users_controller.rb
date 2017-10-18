@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class UsersController < APIController
   # GET /users
   def index
     @users = User.all
