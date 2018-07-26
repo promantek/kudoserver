@@ -4,8 +4,6 @@
 #
 #  id                   :integer          not null, primary key
 #  username             :string
-#  kudos_given_count    :integer
-#  kudos_received_count :integer
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  first_name           :text

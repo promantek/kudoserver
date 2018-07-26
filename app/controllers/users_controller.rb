@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   # GET /users
   def index
     @users = User.all
-    render json: @users, status: :ok
+    render json: @users.as_json(methods: [:kudos_given_count, :kudos_received_count]), status: :ok
   end
 
   # GET /users/:id
