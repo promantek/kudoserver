@@ -258,3 +258,21 @@ POST: `curl -H "Content-Type: application/json" -d '{"username":"daenerys", "fir
     "last_name": "Targaryen"
 }
 ```
+
+**Request**:
+
+`GET /users/me` - get user info for "logged in" user *
+
+_* Server-side authentication is not currently implemented, but for this project's purposes you can assume this is the logged-in, authenticated user._
+
+*Parameters*:
+
+None
+
+**Response**:
+
+See `GET /users/:id`
+
+*Body*:
+
+See `GET /users/:id`
