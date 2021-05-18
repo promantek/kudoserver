@@ -7,7 +7,7 @@ end
 
 gem 'rails', '~> 5.2.4.2'
 gem 'pg'
-gem 'puma', '~> 3.12'
+gem 'puma', '~> 4.3'
 
 gem 'faker'
 
